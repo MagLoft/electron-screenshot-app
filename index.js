@@ -15,7 +15,8 @@ module.exports = function (options, callback) {
 		{
 			show: false,
 			webPreferences: {
-				nodeIntegration: false
+				nodeIntegration: false,
+				zoomFactor: options.zoom || 1.0
 			},
 			transparent: false,
 			backgroundThrottling: false
@@ -93,7 +94,7 @@ module.exports = function (options, callback) {
 		// Register the IPC sizeEvent once
 		ipcMain.once(sizeEvent, (e, data) => {
 			// Don't be smaller than options.width, options.height
-			popupWindow.setSize(Math.max(options.width, data.width), Math.max(options.height, data.height));
+			popupWindow.setSize(Math.max(options.width, data.width), Math.max(options.height, parseInt(data.height * (options.zoom || 1.0), 10)));
 			popupWindow.webContents.executeJavaScript('window["$$electron__loaded"]()');
 		});
 

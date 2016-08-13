@@ -230,4 +230,17 @@ describe('Screenshot', () => {
 			done();
 		});
 	});
+
+	it('should have a `zoom` option', done => {
+		screenshot({
+			url: 'about:blank',
+			zoom: 2.0,
+			width: 500,
+			height: 500
+		},
+		err => {
+			assert.equal(err, undefined);
+			done();
+		});
+	});
 });
